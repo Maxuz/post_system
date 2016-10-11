@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>Facelet Title</title>
+	<h:outputStylesheet library="css" name="style_main.css" />
+	<h:outputStylesheet library="css" name="style_add_edit.css" />
+	
+	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+	<script>tinymce.init({ selector:'textarea' });</script>
+</h:head>
+<h:body>
+	<div class="header">
+		<ui:insert name="header">
+			<ui:include src="/templates/header.xhtml" />
+		</ui:insert>
+	</div>
+	<div class="middle">
+		<div class="editing_note">
+			<h:form class="editing_content">
+				<h:outputLabel value="Title" />
+				<br />
+				<h:inputText class="input_title" value="#{addEditController.noteBean.title}" />
+				<br />
+				<h:inputTextarea class="input_body" value="#{addEditController.noteBean.body}" />
+				<br />
+				<h:outputLabel value="Category" />
+				<br />
+				<h:inputText class="input_category" value="#{addEditController.noteBean.category}" />
+				<br />
+				<h:outputLabel value="Tags" />
+				<br />
+				<h:inputText class="input_tags" value="#{addEditController.noteBean.tags}" />
+
+				<br />
+				<h:commandButton class="save_button" action="#{addEditController.save()}" value="Save"
+					type="submit" />
+				<h:button class="cancel_button" outcome="/index.xhtml?faces-redirect=true" value="Cancel"
+					actionListener="#{actionController.setBrowsingMode()}" />
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>
+

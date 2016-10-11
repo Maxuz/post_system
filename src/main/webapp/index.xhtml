@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Заметки программиста</title>
+	<h:outputStylesheet library="css" name="style_main.css" />
+</h:head>
+<h:body>
+	<div class="header">
+		<ui:insert name="header">
+			<ui:include src="/templates/header.xhtml" />
+		</ui:insert>
+	</div>
+	<div class="content">
+		<div class="note_list">
+			<ui:repeat var="noteBean" value="#{noteListController.noteBeanList}">
+				<div class="note">
+					<h:outputLabel class="note_category" value="#{noteBean.category}: " />
+					<h:outputLabel class="note_title" value="#{noteBean.title}" />
+					<br />
+					<h:outputLabel class="note_create_date"
+						value="#{noteBean.createDate}" />
+					<br />
+					<div class="note_body">
+						<h:outputText value="#{noteBean.body}" escape="false" />
+					</div>
+					<br />
+					<h:outputLabel class="note_tags" value="#{noteBean.tags}" />
+					<h:form>
+						<h:commandButton class="control_button"	action="#{actionController.setEditMode()}"	value="Edit">
+							<f:setPropertyActionListener value="#{noteBean}" target="#{noteListController.selectedNoteBean}" />
+						</h:commandButton>
+						<h:commandButton class="control_button"	action="#{noteListController.deleteNoteBean()}"	value="Delete">
+							<f:setPropertyActionListener value="#{noteBean}" target="#{noteListController.selectedNoteBean}" />
+						</h:commandButton>
+					</h:form>
+				</div>
+			</ui:repeat>
+		</div>
+
+		<div class="navigation_control_panel">
+			<div class="control_panel">
+				<h:form>
+					<h:commandButton class="control_button"	action="#{actionController.setAddMode()}" value="Add"></h:commandButton>
+				</h:form>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
+
