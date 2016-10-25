@@ -11,7 +11,7 @@ import javax.inject.Named;
 
 import org.hibernate.Session;
 
-import tk.maxuz.blog.connection.SessionFactoryProvider;
+import tk.maxuz.blog.connection.SessionProvider;
 import tk.maxuz.blog.entity.Note;
 import tk.maxuz.blog.entity.Tag;
 import tk.maxuz.blog.entity.dao.TagDao;
@@ -27,17 +27,22 @@ public class TagController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private SessionFactoryProvider sessionFactoryProvider;
+	private SessionProvider sessionFactoryProvider;
 
 	private TagDao tagDao;
 
 	public TagController() {
 		tagDao = new TagDao();
 	}
+	
+	public TagController(SessionProvider sessionFactoryProvider) {
+		this();
+		this.sessionFactoryProvider = sessionFactoryProvider;
+	}
 
 	public List<Tag> setTags(Note note, String tags) throws BlogException {
 		List<Tag> result = new ArrayList<>();
-		Session session = sessionFactoryProvider.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryProvider.getCurrentSession();
 		String[] newTagLabels = tags.split(TAG_DELIMITER_REGEX);
 
 		List<String> tagLabels = new ArrayList<>();
@@ -108,11 +113,11 @@ public class TagController implements Serializable {
 		return sb.toString();
 	}
 
-	public SessionFactoryProvider getSessionFactoryProvider() {
+	public SessionProvider getSessionFactoryProvider() {
 		return sessionFactoryProvider;
 	}
 
-	public void setSessionFactoryProvider(SessionFactoryProvider sessionFactoryProvider) {
+	public void setSessionFactoryProvider(SessionProvider sessionFactoryProvider) {
 		this.sessionFactoryProvider = sessionFactoryProvider;
 	}
 

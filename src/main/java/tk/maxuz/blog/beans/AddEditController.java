@@ -10,7 +10,7 @@ import javax.inject.Named;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import tk.maxuz.blog.connection.SessionFactoryProvider;
+import tk.maxuz.blog.connection.SessionProvider;
 import tk.maxuz.blog.entity.Note;
 import tk.maxuz.blog.entity.dao.NoteDao;
 import tk.maxuz.blog.exception.BlogException;
@@ -26,7 +26,7 @@ public class AddEditController implements Serializable {
 	private static final String EMPTY_CATEGORY_NAME_ERROR_MSG = "Category name can't be empty";
 
 	@Inject
-	private SessionFactoryProvider sessionFactoryProvider;
+	private SessionProvider sessionFactoryProvider;
 
 	@Inject
 	private CategoryController categoryController;
@@ -57,7 +57,7 @@ public class AddEditController implements Serializable {
 	}
 
 	public String save() throws BlogException {
-		Session session = sessionFactoryProvider.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryProvider.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			Note note;
@@ -117,11 +117,11 @@ public class AddEditController implements Serializable {
 		this.actionController = actionController;
 	}
 
-	public SessionFactoryProvider getSessionFactoryProvider() {
+	public SessionProvider getSessionFactoryProvider() {
 		return sessionFactoryProvider;
 	}
 
-	public void setSessionFactoryProvider(SessionFactoryProvider sessionFactoryProvider) {
+	public void setSessionFactoryProvider(SessionProvider sessionFactoryProvider) {
 		this.sessionFactoryProvider = sessionFactoryProvider;
 	}
 

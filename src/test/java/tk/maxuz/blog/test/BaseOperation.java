@@ -22,7 +22,7 @@ import tk.maxuz.blog.beans.NoteBean;
 import tk.maxuz.blog.beans.NoteListController;
 import tk.maxuz.blog.beans.TagController;
 import tk.maxuz.blog.connection.JDBCConnectionHelper;
-import tk.maxuz.blog.connection.SessionFactoryProvider;
+import tk.maxuz.blog.connection.SessionProvider;
 import tk.maxuz.blog.entity.Category;
 import tk.maxuz.blog.entity.Note;
 import tk.maxuz.blog.entity.Tag;
@@ -33,7 +33,7 @@ import tk.maxuz.blog.exception.BlogException;
 
 public class BaseOperation {
 
-	protected static SessionFactoryProvider sessionFactoryProvider;
+	protected static SessionProvider sessionProvider;
 
 	protected static NoteDao noteDao;
 	protected static CategoryDao categoryDao;
@@ -50,20 +50,16 @@ public class BaseOperation {
 
 	@BeforeClass
 	public static void initialize() {
-		sessionFactoryProvider = new SessionFactoryProvider();
+		sessionProvider = new SessionProvider();
 
 		noteDao = new NoteDao();
 		categoryDao = new CategoryDao();
 		tagDao = new TagDao();
 
-		categoryController = new CategoryController();
-		categoryController.setSessionFactoryProvider(sessionFactoryProvider);
-
-		tagController = new TagController();
-		tagController.setSessionFactoryProvider(sessionFactoryProvider);
-
-		noteListController = new NoteListController();
-		noteListController.setSessionFactoryProvider(sessionFactoryProvider);
+		categoryController = new CategoryController(sessionProvider);
+		tagController = new TagController(sessionProvider);
+		
+		noteListController = new NoteListController(sessionProvider);
 		noteListController.setTagController(tagController);
 		noteListController.initialize();
 
@@ -78,39 +74,13 @@ public class BaseOperation {
 
 	@AfterClass
 	public static void finish() {
-		sessionFactoryProvider.getSessionFactory().close();
+		sessionProvider.getCurrentSession().close();
 		jdbcConnectionHelper.closeConnection();
 	}
 
 	@Before
 	public void before() throws BlogException {
 		clearDatabase();
-
-		// rcarver - setup the jndi context and the datasource
-		// https://blogs.oracle.com/randystuph/entry/injecting_jndi_datasources_for_junit
-		/*try {
-			// Create initial context
-			System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
-			System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
-			InitialContext ic = new InitialContext();
-
-			ic.createSubcontext("java:");
-			ic.createSubcontext("java:/comp");
-			ic.createSubcontext("java:/comp/env");
-			ic.createSubcontext("java:/comp/env/jdbc");
-
-			// Construct DataSource
-			Jdbc3PoolingDataSource ds = new Jdbc3PoolingDataSource();
-			ds.setServerName("localhost");
-			ds.setDatabaseName("test_post_system");
-			ds.setUser("testuser");
-			ds.setPassword("user");
-			ds.setMaxConnections(10);
-
-			ic.bind("java:jboss/env/jdbc/test_post_system", ds);
-		} catch (NamingException ex) {
-			ex.printStackTrace();
-		}*/
 	}
 
 	@After
@@ -145,7 +115,7 @@ public class BaseOperation {
 		AddEditController addEditController = new AddEditController();
 		addEditController.setActionController(actionController);
 		addEditController.setCategoryController(categoryController);
-		addEditController.setSessionFactoryProvider(sessionFactoryProvider);
+		addEditController.setSessionFactoryProvider(sessionProvider);
 		addEditController.setNoteListController(noteListController);
 		addEditController.setTagController(tagController);
 		addEditController.initialize();
@@ -154,7 +124,7 @@ public class BaseOperation {
 
 	protected static Note addNoteToDatabase(String title, String body, String categoryName, List<String> tagLabelList)
 			throws BlogException {
-		Session session = sessionFactoryProvider.getSessionFactory().getCurrentSession();
+		Session session = sessionProvider.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
 		Note note = new Note();

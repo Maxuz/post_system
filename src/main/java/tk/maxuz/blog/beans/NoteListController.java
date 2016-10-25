@@ -12,7 +12,7 @@ import javax.inject.Named;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import tk.maxuz.blog.connection.SessionFactoryProvider;
+import tk.maxuz.blog.connection.SessionProvider;
 import tk.maxuz.blog.entity.Note;
 import tk.maxuz.blog.entity.dao.NoteDao;
 import tk.maxuz.blog.exception.BlogException;
@@ -29,13 +29,20 @@ public class NoteListController implements Serializable {
 	private List<NoteBean> noteBeanList;
 
 	@Inject
-	private SessionFactoryProvider sessionFactoryProvider;
+	private SessionProvider sessionFactoryProvider;
 
 	@Inject
 	private TagController tagController;
 
 	private NoteDao noteDao;
 	private NoteBean selectedNoteBean;
+
+	public NoteListController() {
+	}
+	
+	public NoteListController(SessionProvider sessionFactoryProvider) {
+		this.sessionFactoryProvider = sessionFactoryProvider;
+	}
 
 	@PostConstruct
 	public void initialize() {
@@ -45,7 +52,7 @@ public class NoteListController implements Serializable {
 	public List<NoteBean> getNoteBeanList() throws BlogException {
 		noteBeanList.clear();
 		noteDao = new NoteDao();
-		Session session = sessionFactoryProvider.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryProvider.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		for (Note note : noteDao.getAllNotes(session)) {
 			NoteBean nb = createNoteBeanFromNote(note);
@@ -56,7 +63,7 @@ public class NoteListController implements Serializable {
 	}
 
 	public String deleteNoteBean() throws BlogException {
-		Session session = sessionFactoryProvider.getSessionFactory().getCurrentSession();
+		Session session = sessionFactoryProvider.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
 			noteDao.removeNote(session, selectedNoteBean.getTitle());
@@ -79,11 +86,11 @@ public class NoteListController implements Serializable {
 		selectedNoteBean = noteBean;
 	}
 
-	public SessionFactoryProvider getSessionFactoryProvider() {
+	public SessionProvider getSessionFactoryProvider() {
 		return sessionFactoryProvider;
 	}
 
-	public void setSessionFactoryProvider(SessionFactoryProvider sessionFactoryProvider) {
+	public void setSessionFactoryProvider(SessionProvider sessionFactoryProvider) {
 		this.sessionFactoryProvider = sessionFactoryProvider;
 	}
 
