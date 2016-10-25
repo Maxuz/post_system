@@ -26,7 +26,7 @@ public class AddEditController implements Serializable {
 	private static final String EMPTY_CATEGORY_NAME_ERROR_MSG = "Category name can't be empty";
 
 	@Inject
-	private SessionProvider sessionFactoryProvider;
+	private SessionProvider sessionProvider;
 
 	@Inject
 	private CategoryController categoryController;
@@ -57,7 +57,7 @@ public class AddEditController implements Serializable {
 	}
 
 	public String save() throws BlogException {
-		Session session = sessionFactoryProvider.getCurrentSession();
+		Session session = sessionProvider.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			Note note;
@@ -117,12 +117,12 @@ public class AddEditController implements Serializable {
 		this.actionController = actionController;
 	}
 
-	public SessionProvider getSessionFactoryProvider() {
-		return sessionFactoryProvider;
+	public SessionProvider getSessionProvider() {
+		return sessionProvider;
 	}
 
-	public void setSessionFactoryProvider(SessionProvider sessionFactoryProvider) {
-		this.sessionFactoryProvider = sessionFactoryProvider;
+	public void setSessionProvider(SessionProvider sessionProvider) {
+		this.sessionProvider = sessionProvider;
 	}
 
 	public CategoryController getCategoryController() {

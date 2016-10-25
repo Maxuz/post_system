@@ -22,7 +22,7 @@ public class CategoryController implements Serializable {
 	private static final String EMPTY_OR_NULL_CATEGORY_NAME_ERROR_MSG = "Note category can't be null or empty";
 
 	@Inject
-	private SessionProvider sessionFactoryProvider;
+	private SessionProvider sessionProvider;
 
 	private CategoryDao categoryDao;
 
@@ -30,26 +30,26 @@ public class CategoryController implements Serializable {
 		categoryDao = new CategoryDao();
 	}
 	
-	public CategoryController(SessionProvider sessionFactoryProvider) {
+	public CategoryController(SessionProvider sessionProvider) {
 		this();
-		this.sessionFactoryProvider = sessionFactoryProvider;
+		this.sessionProvider = sessionProvider;
 	}
 
 	public void setCategory(Note note, String categoryName) throws BlogException {
 		if (categoryName == null || categoryName.trim().isEmpty()) {
 			throw new BlogException(EMPTY_OR_NULL_CATEGORY_NAME_ERROR_MSG);
 		}
-		Session session = sessionFactoryProvider.getCurrentSession();
+		Session session = sessionProvider.getCurrentSession();
 		Category category = categoryDao.getCategoryByName(session, categoryName, true);
 		note.setCategory(category);
 	}
 
-	public SessionProvider getSessionFactoryProvider() {
-		return sessionFactoryProvider;
+	public SessionProvider getSessionProvider() {
+		return sessionProvider;
 	}
 
-	public void setSessionFactoryProvider(SessionProvider sessionFactoryProvider) {
-		this.sessionFactoryProvider = sessionFactoryProvider;
+	public void setSessionProvider(SessionProvider sessionProvider) {
+		this.sessionProvider = sessionProvider;
 	}
 
 }

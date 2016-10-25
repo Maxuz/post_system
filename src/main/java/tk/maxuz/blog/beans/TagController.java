@@ -27,7 +27,7 @@ public class TagController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private SessionProvider sessionFactoryProvider;
+	private SessionProvider sessionProvider;
 
 	private TagDao tagDao;
 
@@ -35,14 +35,14 @@ public class TagController implements Serializable {
 		tagDao = new TagDao();
 	}
 	
-	public TagController(SessionProvider sessionFactoryProvider) {
+	public TagController(SessionProvider sessionProvider) {
 		this();
-		this.sessionFactoryProvider = sessionFactoryProvider;
+		this.sessionProvider = sessionProvider;
 	}
 
 	public List<Tag> setTags(Note note, String tags) throws BlogException {
 		List<Tag> result = new ArrayList<>();
-		Session session = sessionFactoryProvider.getCurrentSession();
+		Session session = sessionProvider.getCurrentSession();
 		String[] newTagLabels = tags.split(TAG_DELIMITER_REGEX);
 
 		List<String> tagLabels = new ArrayList<>();
@@ -113,12 +113,12 @@ public class TagController implements Serializable {
 		return sb.toString();
 	}
 
-	public SessionProvider getSessionFactoryProvider() {
-		return sessionFactoryProvider;
+	public SessionProvider getSessionProvider() {
+		return sessionProvider;
 	}
 
-	public void setSessionFactoryProvider(SessionProvider sessionFactoryProvider) {
-		this.sessionFactoryProvider = sessionFactoryProvider;
+	public void setSessionProvider(SessionProvider sessionProvider) {
+		this.sessionProvider = sessionProvider;
 	}
 
 }

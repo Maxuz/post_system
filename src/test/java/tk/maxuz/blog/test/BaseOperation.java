@@ -115,7 +115,7 @@ public class BaseOperation {
 		AddEditController addEditController = new AddEditController();
 		addEditController.setActionController(actionController);
 		addEditController.setCategoryController(categoryController);
-		addEditController.setSessionFactoryProvider(sessionProvider);
+		addEditController.setSessionProvider(sessionProvider);
 		addEditController.setNoteListController(noteListController);
 		addEditController.setTagController(tagController);
 		addEditController.initialize();

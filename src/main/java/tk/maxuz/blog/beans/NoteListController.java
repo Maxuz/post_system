@@ -29,7 +29,7 @@ public class NoteListController implements Serializable {
 	private List<NoteBean> noteBeanList;
 
 	@Inject
-	private SessionProvider sessionFactoryProvider;
+	private SessionProvider sessionProvider;
 
 	@Inject
 	private TagController tagController;
@@ -40,8 +40,8 @@ public class NoteListController implements Serializable {
 	public NoteListController() {
 	}
 	
-	public NoteListController(SessionProvider sessionFactoryProvider) {
-		this.sessionFactoryProvider = sessionFactoryProvider;
+	public NoteListController(SessionProvider sessionProvider) {
+		this.sessionProvider = sessionProvider;
 	}
 
 	@PostConstruct
@@ -52,7 +52,7 @@ public class NoteListController implements Serializable {
 	public List<NoteBean> getNoteBeanList() throws BlogException {
 		noteBeanList.clear();
 		noteDao = new NoteDao();
-		Session session = sessionFactoryProvider.getCurrentSession();
+		Session session = sessionProvider.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		for (Note note : noteDao.getAllNotes(session)) {
 			NoteBean nb = createNoteBeanFromNote(note);
@@ -63,7 +63,7 @@ public class NoteListController implements Serializable {
 	}
 
 	public String deleteNoteBean() throws BlogException {
-		Session session = sessionFactoryProvider.getCurrentSession();
+		Session session = sessionProvider.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
 			noteDao.removeNote(session, selectedNoteBean.getTitle());
@@ -86,12 +86,12 @@ public class NoteListController implements Serializable {
 		selectedNoteBean = noteBean;
 	}
 
-	public SessionProvider getSessionFactoryProvider() {
-		return sessionFactoryProvider;
+	public SessionProvider getSessionProvider() {
+		return sessionProvider;
 	}
 
-	public void setSessionFactoryProvider(SessionProvider sessionFactoryProvider) {
-		this.sessionFactoryProvider = sessionFactoryProvider;
+	public void setSessionProvider(SessionProvider sessionProvider) {
+		this.sessionProvider = sessionProvider;
 	}
 
 	public TagController getTagController() {
