@@ -4,7 +4,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-	<title>Facelet Title</title>
+	<title>Заметки программиста</title>
 	<h:outputStylesheet library="css" name="style_main.css" />
 	<h:outputStylesheet library="css" name="style_add_edit.css" />
 	
@@ -37,8 +37,8 @@
 				<br />
 				<h:commandButton class="save_button" action="#{addEditController.save()}" value="Save"
 					type="submit" />
-				<h:button class="cancel_button" outcome="/index.xhtml?faces-redirect=true" value="Cancel"
-					actionListener="#{actionController.setBrowsingMode()}" />
+				<h:commandButton class="cancel_button"	action="#{addEditController.cancel}"	value="Cancel"/>
+				
 			</h:form>
 		</div>
 	</div>

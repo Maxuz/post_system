@@ -32,7 +32,7 @@ public class ActionController implements Serializable {
 
 	public String setEditMode() {
 		if (!noteListController.isReadyToEdit()) {
-			return HtmlPage.INDEX;
+			return HtmlPage.MAIN;
 		}
 		currentMode = ActionMode.EDIT;
 		return HtmlPage.ADD_EDIT;

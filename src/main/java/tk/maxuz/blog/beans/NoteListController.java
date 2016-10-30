@@ -71,7 +71,7 @@ public class NoteListController implements Serializable {
 			throw new BlogException(REMOVE_NOTE_ERROR_MSG, ex);
 		}
 		tx.commit();
-		return HtmlPage.INDEX;
+		return HtmlPage.MAIN;
 	}
 
 	public boolean isReadyToEdit() {

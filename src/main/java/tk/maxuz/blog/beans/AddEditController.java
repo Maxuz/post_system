@@ -77,10 +77,15 @@ public class AddEditController implements Serializable {
 			}
 			transaction.commit();
 
-			return HtmlPage.INDEX;
+			return HtmlPage.MAIN;
 		} catch (BlogException ex) {
 			throw new BlogException(ADD_EDIT_SAVE_ERROR_MSG, ex);
 		}
+	}
+	
+	public String cancel() {
+		actionController.setBrowsingMode();
+		return HtmlPage.MAIN;
 	}
 
 	private Note createNoteFromNoteBean(NoteBean noteBean) throws BlogException {

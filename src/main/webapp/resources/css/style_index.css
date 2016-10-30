@@ -1,0 +1,38 @@
+body {
+	background-color: #868686;
+	margin: 0px;
+	height: 100%;
+}
+
+.main {
+	padding-top: 80px;
+}
+
+.login_form {
+	background-color: #ededed;
+	width: 300px;
+	margin: auto;
+	box-shadow: 0 0 5px gray;
+	border-radius: 3px;
+}
+
+.login_table {
+	padding: 8px;
+}
+
+.first_col {
+	width: 100px;
+}
+
+.second_col {
+	width: 200px;
+	text-align: right;
+}
+
+.error {
+	padding: 20px;
+	color: red;
+}
+
+
+

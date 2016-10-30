@@ -25,6 +25,18 @@ create table note_tag (
 	PRIMARY KEY (note_id, tag_id)
 );
 
+create table app_user (
+	id SERIAL PRIMARY KEY,
+	username VARCHAR(255) NOT NULL UNIQUE,
+	password VARCHAR(255) NOT NULL
+);
+
+create table app_user_role (
+	id SERIAL PRIMARY KEY,
+	username VARCHAR(255) NOT NULL UNIQUE,
+	role VARCHAR(255) NOT NULL
+);
+
 create table visitor (
 	visitor_id SERIAL PRIMARY KEY, 
 	ip INET NOT NULL,
@@ -39,3 +51,5 @@ grant select, insert, update, delete on note_tag to testuser;
 grant usage on note_note_id_seq to testuser;
 grant usage on category_category_id_seq to testuser;
 grant usage on tag_tag_id_seq to testuser;
+grant select on app_user to testuser;
+grant select on app_user_role to testuser;
