@@ -9,6 +9,18 @@
 </h:head>
 <body>
 	<ui:composition>
+		<div class="header_user_control">
+			<div class="header_user_name">
+				<h:form>
+					<h:graphicImage library="images" name="User_24x24.png" class="header_user_img" />
+					<h:outputText value="#{userController.username}"></h:outputText>
+					<h:commandLink action="#{userController.logout()}">
+						<h:graphicImage library="images" name="Log_Out_24x24.png" class="header_user_img" />
+					</h:commandLink>
+				</h:form>
+
+			</div>
+		</div>
 		<div class="header_title">Заметки познающего</div>
 		<div class="header_descriprion">
 			<p>В данном блоге содержаться статьи, заметки и просто мысли на

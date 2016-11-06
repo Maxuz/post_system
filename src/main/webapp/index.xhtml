@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <f:view>
 	<h:head>
 		<title>Заметки программиста</title>
@@ -14,14 +15,14 @@
 			<h:form styleClass="login_form" id="login_form">
 				<h:panelGrid columns="2" cellpadding="5" cellspacing="1" styleClass="login_table" columnClasses="first_col, second_col">
 					<h:outputText value="Login"></h:outputText>
-					<h:inputText id="username"	value="#{user.username}" required="true" requiredMessage="Login can't be empty">
+					<h:inputText id="username"	value="#{user.username}" a:autofocus="true" required="true" requiredMessage="Login can't be empty">
 					</h:inputText>
 					<h:outputText value="Password"></h:outputText>
 					<h:inputSecret id="password" value="#{user.password}" required="true" 
 								redisplay="true" requiredMessage="Обязательное поле">
 					</h:inputSecret>
 					<h:panelGroup/>
-					<h:commandButton action="#{user.login()}" value="Sign in"	styleClass="login_button">
+					<h:commandButton action="#{userController.login(user)}" value="Sign in"	styleClass="login_button">
 					</h:commandButton>
 				</h:panelGrid>
 				<h:message id="loginError" for="login_form" styleClass="error"/>
