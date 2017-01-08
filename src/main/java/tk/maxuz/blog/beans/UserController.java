@@ -20,7 +20,7 @@ public class UserController implements Serializable {
 	
 	public String getUsername() {
 		if (username == null) {
-			throw new IllegalArgumentException("User is not signed in");
+			throw new IllegalStateException("User is not signed in");
 		}
 		return username;
 	}
