@@ -19,6 +19,9 @@ body {
 
 .input_body {
 	width: 100%;
+}
+
+div.input_body textarea {
 	height: 300px;
 }
 

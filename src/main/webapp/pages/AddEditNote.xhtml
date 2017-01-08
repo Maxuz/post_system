@@ -2,14 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://butterfaces.org/components" >
 <h:head>
 	<title>Заметки программиста</title>
 	<h:outputStylesheet library="css" name="style_main.css" />
 	<h:outputStylesheet library="css" name="style_add_edit.css" />
 	
-	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-	<script>tinymce.init({ selector:'textarea' });</script>
 </h:head>
 <h:body>
 	<div class="header">
@@ -24,7 +23,18 @@
 				<br />
 				<h:inputText class="input_title" value="#{addEditController.noteBean.title}" />
 				<br />
-				<h:inputTextarea class="input_body" value="#{addEditController.noteBean.body}" />
+				<b:markdown id="input_body"
+                    hideLabel="true"
+                    value="#{addEditController.noteBean.body}"
+                    styleClass="input_body"
+                    readonly="false"
+                    required="false"
+                    disabled="false"
+                    placeholder="Enter text..."
+                    language="en"
+                    autoFocus="true"
+                    rendered="true">
+		        </b:markdown>
 				<br />
 				<h:outputLabel value="Category" />
 				<br />

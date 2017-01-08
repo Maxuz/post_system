@@ -46,7 +46,7 @@
 		</auth-constraint>
 		<user-data-constraint>
 			<description />
-			<transport-guarantee>NONE</transport-guarantee>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
 	<login-config>
