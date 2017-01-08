@@ -4,9 +4,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class JDBCConnectionHelper {
+	private static final String GET_DATABASE_DRIVER_ERROR_MSG = "Ошибка получения драйвера базы данных";
+	private static final String CONNECT_TO_DATABASE_ERROR_MSG = "Ошибка соединения с базой данных";
+	private static final String CONNECTION_IS_NOT_INITIALIZED_ERROR_MSG = "Connection is not initialized.";
+	private static final String CLOSE_CONNECTION_ERROR_MSG = "Ошибка закрытия соединения с базой данных";
+
 	private Connection connection;
 
+	private final Logger LOGGER = LoggerFactory.getLogger(JDBCConnectionHelper.class);
+	
 	public void initialize() {
 		try {
 			if (connection == null) {
@@ -14,17 +24,15 @@ public class JDBCConnectionHelper {
 				connection = DriverManager.getConnection("jdbc:postgresql:post_system_test", "testuser", "user");
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error(GET_DATABASE_DRIVER_ERROR_MSG, e);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error(CONNECT_TO_DATABASE_ERROR_MSG, e);
 		}
 	}
 
 	public Connection getConnection() {
 		if (connection == null) {
-			throw new RuntimeException("Connection is not initialized.");
+			throw new RuntimeException(CONNECTION_IS_NOT_INITIALIZED_ERROR_MSG);
 		}
 		return connection;
 	}
@@ -34,9 +42,8 @@ public class JDBCConnectionHelper {
 			if (connection != null && !connection.isClosed()) {
 				connection.close();
 			}
-		} catch (SQLException ex) {
-			// TODO Auto-generated catch block
-			ex.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.error(CLOSE_CONNECTION_ERROR_MSG, e);
 		}
 	}
 }
