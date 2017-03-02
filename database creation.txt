@@ -1,12 +1,12 @@
-Очистка БД
-http://stackoverflow.com/questions/2117708/how-to-empty-a-sql-database
+//Очистка БД
+//http://stackoverflow.com/questions/2117708/how-to-empty-a-sql-database
 
-create table category (
+create table if not exists category (
 	category_id SERIAL PRIMARY KEY, 
 	name VARCHAR(50) NOT NULL 
 );
 
-create table note (
+create table if not exists note (
 	note_id SERIAL PRIMARY KEY, 
 	create_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	title VARCHAR(500) NOT NULL UNIQUE,
@@ -14,42 +14,42 @@ create table note (
 	category_id INTEGER NOT NULL REFERENCES category (category_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-create table tag (
+create table if not exists tag (
 	tag_id SERIAL PRIMARY KEY, 
 	label VARCHAR(30) NOT NULL
 );
 
-create table note_tag (
+create table if not exists note_tag (
 	note_id INTEGER NOT NULL REFERENCES note (note_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	tag_id INTEGER NOT NULL REFERENCES tag (tag_id) ON DELETE CASCADE ON UPDATE CASCADE, 
 	PRIMARY KEY (note_id, tag_id)
 );
 
-create table app_user (
+create table if not exists app_user (
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) NOT NULL UNIQUE,
 	password VARCHAR(255) NOT NULL
 );
 
-create table app_user_role (
+create table if not exists app_user_role (
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(255) NOT NULL UNIQUE,
 	role VARCHAR(255) NOT NULL
 );
 
-create table visitor (
+create table if not exists visitor (
 	visitor_id SERIAL PRIMARY KEY, 
 	ip INET NOT NULL,
 	visit_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-grant select, insert, update, delete on note to testuser;
-grant select, insert, update, delete on category to testuser;
-grant select, insert, update, delete on tag to testuser;
-grant select, insert, update, delete on note_tag to testuser;
+grant select, insert, update, delete on note to mdiaryuser;
+grant select, insert, update, delete on category to mdiaryuser;
+grant select, insert, update, delete on tag to mdiaryuser;
+grant select, insert, update, delete on note_tag to mdiaryuser;
 
-grant usage on note_note_id_seq to testuser;
-grant usage on category_category_id_seq to testuser;
-grant usage on tag_tag_id_seq to testuser;
-grant select on app_user to testuser;
-grant select on app_user_role to testuser;
+grant usage on note_note_id_seq to mdiaryuser;
+grant usage on category_category_id_seq to mdiaryuser;
+grant usage on tag_tag_id_seq to mdiaryuser;
+grant select on app_user to mdiaryuser;
+grant select on app_user_role to mdiaryuser;

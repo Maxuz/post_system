@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <jboss-web>
-    <security-domain>secureDomain</security-domain>
+    <security-domain>user-policy</security-domain>
+    <context-root>mdiary</context-root>
 </jboss-web>

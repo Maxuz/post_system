@@ -11,6 +11,8 @@
 	<logger name="org.hibernate.type" level="ALL" /> 
 	<logger name="org.hibernate" level="DEBUG" /> -->
 
+	<!-- <logger name="org.jboss.security" level="TRACE" /> -->
+
 	<root level="TRACE">
 		<appender-ref ref="STDOUT" />
 	</root>
