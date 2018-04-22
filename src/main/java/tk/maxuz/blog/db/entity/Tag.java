@@ -1,4 +1,4 @@
-package tk.maxuz.blog.entity;
+package tk.maxuz.blog.db.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

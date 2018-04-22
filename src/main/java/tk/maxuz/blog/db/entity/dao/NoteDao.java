@@ -1,13 +1,13 @@
-package tk.maxuz.blog.entity.dao;
+package tk.maxuz.blog.db.entity.dao;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import tk.maxuz.blog.entity.Category;
-import tk.maxuz.blog.entity.Note;
-import tk.maxuz.blog.entity.Tag;
+import tk.maxuz.blog.db.entity.Category;
+import tk.maxuz.blog.db.entity.Note;
+import tk.maxuz.blog.db.entity.Tag;
 import tk.maxuz.blog.exception.BlogException;
 
 public class NoteDao {

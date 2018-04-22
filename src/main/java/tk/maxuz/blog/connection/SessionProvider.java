@@ -10,9 +10,9 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import tk.maxuz.blog.entity.Category;
-import tk.maxuz.blog.entity.Note;
-import tk.maxuz.blog.entity.Tag;
+import tk.maxuz.blog.db.entity.Category;
+import tk.maxuz.blog.db.entity.Note;
+import tk.maxuz.blog.db.entity.Tag;
 
 @Named
 @ApplicationScoped

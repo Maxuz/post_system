@@ -12,9 +12,9 @@ import javax.inject.Named;
 import org.hibernate.Session;
 
 import tk.maxuz.blog.connection.SessionProvider;
-import tk.maxuz.blog.entity.Note;
-import tk.maxuz.blog.entity.Tag;
-import tk.maxuz.blog.entity.dao.TagDao;
+import tk.maxuz.blog.db.entity.Note;
+import tk.maxuz.blog.db.entity.Tag;
+import tk.maxuz.blog.db.entity.dao.TagDao;
 import tk.maxuz.blog.exception.BlogException;
 
 @Named

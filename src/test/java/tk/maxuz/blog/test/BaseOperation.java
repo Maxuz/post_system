@@ -23,12 +23,12 @@ import tk.maxuz.blog.beans.NoteListController;
 import tk.maxuz.blog.beans.TagController;
 import tk.maxuz.blog.connection.JDBCConnectionHelper;
 import tk.maxuz.blog.connection.SessionProvider;
-import tk.maxuz.blog.entity.Category;
-import tk.maxuz.blog.entity.Note;
-import tk.maxuz.blog.entity.Tag;
-import tk.maxuz.blog.entity.dao.CategoryDao;
-import tk.maxuz.blog.entity.dao.NoteDao;
-import tk.maxuz.blog.entity.dao.TagDao;
+import tk.maxuz.blog.db.entity.Category;
+import tk.maxuz.blog.db.entity.Note;
+import tk.maxuz.blog.db.entity.Tag;
+import tk.maxuz.blog.db.entity.dao.CategoryDao;
+import tk.maxuz.blog.db.entity.dao.NoteDao;
+import tk.maxuz.blog.db.entity.dao.TagDao;
 import tk.maxuz.blog.exception.BlogException;
 
 public class BaseOperation {

@@ -16,7 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import tk.maxuz.blog.beans.AddEditController;
 import tk.maxuz.blog.beans.NoteBean;
-import tk.maxuz.blog.entity.Note;
+import tk.maxuz.blog.db.entity.Note;
 import tk.maxuz.blog.exception.BlogException;
 
 public class BaseUpdate extends BaseOperation {

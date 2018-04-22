@@ -1,9 +1,9 @@
-package tk.maxuz.blog.entity.dao;
+package tk.maxuz.blog.db.entity.dao;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import tk.maxuz.blog.entity.Tag;
+import tk.maxuz.blog.db.entity.Tag;
 import tk.maxuz.blog.exception.BlogException;
 
 public class TagDao {

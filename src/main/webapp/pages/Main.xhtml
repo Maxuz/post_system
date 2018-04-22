@@ -4,7 +4,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://butterfaces.org/components" >
+	xmlns:b="http://butterfaces.org/components">
 <h:head>
 	<title>Заметки программиста</title>
 	<h:outputStylesheet library="css" name="style_main.css" />
@@ -15,45 +15,52 @@
 			<ui:include src="/templates/header.xhtml" />
 		</ui:insert>
 	</div>
+
 	<div class="content">
-		<div class="note_list">
-			<ui:repeat var="noteBean" value="#{noteListController.noteBeanList}">
-				<div class="note">
-					<h:outputLabel class="note_category" value="#{noteBean.category}:" />
-					<h:outputLabel class="note_title" value="#{noteBean.title}" />
-					<br />
-					<h:outputLabel class="note_create_date"
-						value="#{noteBean.createDate}" />
-					<br />
-					
-					<b:markdown id="note_body"
-	                    hideLabel="true"
-	                    value="#{noteBean.body}"
-	                    styleClass="note_body"
-	                    readonly="true"
-	                    rendered="true">
-			        </b:markdown>
-					<br />
-					<h:outputLabel class="note_tags" value="#{noteBean.tags}" />
-					<h:form>
-						<h:commandButton class="control_button"	action="#{actionController.setEditMode()}"	value="Edit">
-							<f:setPropertyActionListener value="#{noteBean}" target="#{noteListController.selectedNoteBean}" />
+		<h:form>
+			<div class="note_list">
+				<ui:repeat var="noteBean" value="#{noteListController.noteBeanList}">
+					<div class="note">
+						<h:outputLabel class="note_category" value="#{noteBean.category}:" />
+						<h:outputLabel class="white-space: pre-wrap;" value=" " />
+						<h:outputLabel class="note_title" value="#{noteBean.title}" />
+						<br />
+						<h:outputLabel class="note_create_date"
+							value="#{noteBean.createDate}" />
+						<br />
+
+						<b:markdown id="note_body" hideLabel="true"
+							value="#{noteBean.body}" styleClass="note_body" readonly="true"
+							rendered="true">
+						</b:markdown>
+						<br />
+						<h:outputLabel class="note_tags" value="#{noteBean.tags}" />
+
+						<h:commandButton class="control_button"
+							action="#{actionController.setEditMode()}" value="Edit">
+							<f:setPropertyActionListener value="#{noteBean}"
+								target="#{noteListController.selectedNoteBean}" />
 						</h:commandButton>
-						<h:commandButton class="control_button"	action="#{noteListController.deleteNoteBean()}"	value="Delete">
-							<f:setPropertyActionListener value="#{noteBean}" target="#{noteListController.selectedNoteBean}" />
+						<h:commandButton class="control_button"
+							action="#{noteListController.deleteNoteBean()}" value="Delete">
+							<f:setPropertyActionListener value="#{noteBean}"
+								target="#{noteListController.selectedNoteBean}" />
 						</h:commandButton>
-					</h:form>
-				</div>
-			</ui:repeat>
-		</div>
+
+					</div>
+				</ui:repeat>
+			</div>
+		</h:form>
 
 		<div class="navigation_control_panel">
 			<div class="control_panel">
 				<h:form>
-					<h:commandButton class="control_button"	action="#{actionController.setAddMode()}" value="Add"></h:commandButton>
+					<h:commandButton class="control_button"
+						action="#{actionController.setAddMode()}" value="Add"></h:commandButton>
 				</h:form>
 			</div>
 		</div>
+
 	</div>
 </h:body>
 </html>
