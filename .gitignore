@@ -1,10 +1,14 @@
-*.class
+**/*.class
 
 # Package Files #
-*.jar
-*.war
-/target/
+**/*.jar
+**/*.war
 
-.settings/*
-
+target
+.settings
+.metadata
+.idea
+conf
+out
+build
 
